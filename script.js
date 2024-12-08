@@ -33,29 +33,64 @@ document.addEventListener('DOMContentLoaded', () => {
             skills: `
                 <h3>Habilidades Técnicas</h3>
                 <ul>
-                    <li><strong>Desarrollo de Software</strong>:
+                    <li><strong>Sistemas Operativos</strong>:
                         <ul>
-                            <li>Lenguajes: HTML, CSS, JavaScript, Python, Rust, C/C++, Java, SQL.</li>
-                            <li>Gestión de bases de datos: MySQL, PostgreSQL.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Administración de Sistemas</strong>:
-                        <ul>
-                            <li>Sistemas operativos: Linux (Ubuntu, CentOS, Red Hat), Windows Server (AD, DNS, DHCP, IIS).</li>
-                            <li>Virtualización: Proxmox, VMware.</li>
-                            <li>Contenedores: Docker.</li>
+                            <li>Linux/Unix: Proficiencia en distribuciones como Ubuntu, CentOS, y Red Hat.</li>
+                            <li>Windows Server: Administración de Active Directory, políticas de grupo (Group Policies) y roles de servidor (DNS, DHCP, IIS).</li>
+                            <li>MacOS: Conocimiento de infraestructuras basadas en Mac (menos común pero útil en entornos mixtos).</li>
                         </ul>
                     </li>
                     <li><strong>Redes</strong>:
                         <ul>
-                            <li>Protocolos: TCP/IP, DNS, DHCP, FTP, SMTP, HTTP/HTTPS.</li>
-                            <li>Configuración y mantenimiento de redes.</li>
+                            <li>Configuración de redes: Conocimientos sobre routers, switches, firewalls y VLANs.</li>
+                            <li>Protocolos: Comprensión de TCP/IP, DNS, DHCP, FTP, SMTP, HTTP/HTTPS, SNMP.</li>
+                            <li>Resolución de problemas: Uso de herramientas como Wireshark, tcpdump y traceroute.</li>
+                            <li>VPNs: Configuración y mantenimiento de redes privadas virtuales.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Gestión de Servidores</strong>:
+                        <ul>
+                            <li>Virtualización: Experiencia con Proxmox, VMware, Hyper-V y KVM.</li>
+                            <li>Infraestructura en la Nube: Familiaridad con AWS, Azure y Google Cloud.</li>
+                            <li>Contenedores: Comprensión y uso de Docker y Kubernetes.</li>
+                            <li>Respaldo y Recuperación: Implementación de estrategias de recuperación ante desastres y herramientas como Veeam, Bacula.</li>
                         </ul>
                     </li>
                     <li><strong>Seguridad</strong>:
                         <ul>
-                            <li>Gestión de firewalls.</li>
-                            <li>Aplicación de parches de seguridad y auditorías.</li>
+                            <li>Gestión de Firewalls: Configuración de firewalls de hardware y software.</li>
+                            <li>Detección de intrusiones: Familiaridad con herramientas como Snort u OSSEC.</li>
+                            <li>Gestión de parches: Aplicación de actualizaciones y parches de seguridad.</li>
+                            <li>Gestión de Identidades y Accesos (IAM): Asegurar cuentas de usuario y permisos.</li>
+                            <li>Auditorías y Cumplimiento: Supervisión de logs y cumplimiento de normativas (e.g., GDPR, HIPAA).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Automatización y Scripting</strong>:
+                        <ul>
+                            <li>Lenguajes de scripting: Bash, PowerShell, Python.</li>
+                            <li>Gestión de Configuración: Uso de herramientas como Ansible, Puppet, Chef o SaltStack.</li>
+                            <li>Automatización de tareas: Configuración de Cron Jobs y planificadores de tareas.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Monitoreo y Rendimiento</strong>:
+                        <ul>
+                            <li>Herramientas de monitoreo: Nagios, Zabbix, Prometheus, SolarWinds.</li>
+                            <li>Gestión de Recursos: Monitoreo de CPU, memoria, uso de disco e IOPS.</li>
+                            <li>Diagnóstico: Resolución de cuellos de botella en el rendimiento.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Almacenamiento y Bases de Datos</strong>:
+                        <ul>
+                            <li>Sistemas de Archivos: Conocimientos sobre NTFS, ext4, ZFS, entre otros.</li>
+                            <li>SAN/NAS: Gestión de sistemas de almacenamiento y protocolos como iSCSI, NFS, SMB.</li>
+                            <li>Gestión de Bases de Datos: Comprensión básica de SQL y experiencia con MySQL, PostgreSQL y MSSQL.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Gestión de Software y Aplicaciones</strong>:
+                        <ul>
+                            <li>Servidores Web: Configuración y mantenimiento de Apache, Nginx, IIS.</li>
+                            <li>Servidores de Correo: Gestión de Postfix, Exchange o sistemas similares.</li>
+                            <li>Herramientas de Colaboración: Configuración de plataformas como SharePoint, Slack, Microsoft Teams.</li>
                         </ul>
                     </li>
                 </ul>
@@ -86,80 +121,116 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             help: "Available commands: <br> - about: Professional profile <br> - experience: Work experience <br> - skills: Technical skills <br> - education: Academic background <br> - projects: My GitHub projects <br> - contact: How to contact me",
             about: `
-                <h3>Professional Profile</h3>
-                <p><strong>Professional soldier since 2001</strong>, with a distinguished career in special operations and technology. Advanced experience in systems administration, networks, and software development, with solid knowledge of military information and communication systems.</p>
-            `,
+        <h3>Professional Profile</h3>
+        <p><strong>Professional soldier since 2001</strong>, with a distinguished career in special operations and technology. Advanced experience in systems administration, networking, and software development, with solid knowledge of military information and communication systems.</p>
+    `,
             experience: `
-                <h3>Work Experience</h3>
+        <h3>Work Experience</h3>
+        <ul>
+            <li><strong>Armed Forces (Spanish Navy)</strong>:
                 <ul>
-                    <li><strong>Armed Forces (Spanish Navy)</strong>:
-                        <ul>
-                            <li>2001 - Present: Professional soldier.</li>
-                            <li>2010 - 2021: Member of <strong>FGNE</strong> (Naval Special Warfare Force), performing various roles, including tactical telecommunications and information systems operator in special operations.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Systems and Infrastructure Administrator</strong>:
-                        <ul>
-                            <li>Management of Active Directory (AD) environments: configuration, administration, and maintenance of users, policies, and services.</li>
-                            <li>Experience in Linux systems, both client and server, and virtualization solutions (Proxmox, VMware).</li>
-                            <li>Implementation and maintenance of military information and communication systems.</li>
-                        </ul>
-                    </li>
+                    <li>2001 - Present: Professional soldier.</li>
+                    <li>2010 - 2021: Member of <strong>FGNE</strong> (Naval Special Warfare Force), performing various roles, including tactical telecommunications and information systems operator in special operations.</li>
                 </ul>
-            `,
+            </li>
+            <li><strong>Systems and Infrastructure Administrator</strong>:
+                <ul>
+                    <li>Management of Active Directory (AD) environments: configuration, administration, and maintenance of users, policies, and services.</li>
+                    <li>Experience with Linux systems, both client and server, and virtualization solutions (Proxmox, VMware).</li>
+                    <li>Implementation and maintenance of military information and communication systems.</li>
+                </ul>
+            </li>
+        </ul>
+    `,
             skills: `
-                <h3>Technical Skills</h3>
+        <h3>Technical Skills</h3>
+        <ul>
+            <li><strong>Operating Systems</strong>:
                 <ul>
-                    <li><strong>Software Development</strong>:
-                        <ul>
-                            <li>Languages: HTML, CSS, JavaScript, Python, Rust, C/C++, Java, SQL.</li>
-                            <li>Database management: MySQL, PostgreSQL.</li>
-                        </ul>
-                    </li>
-                    <li><strong>System Administration</strong>:
-                        <ul>
-                            <li>Operating systems: Linux (Ubuntu, CentOS, Red Hat), Windows Server (AD, DNS, DHCP, IIS).</li>
-                            <li>Virtualization: Proxmox, VMware.</li>
-                            <li>Containers: Docker.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Networking</strong>:
-                        <ul>
-                            <li>Protocols: TCP/IP, DNS, DHCP, FTP, SMTP, HTTP/HTTPS.</li>
-                            <li>Network configuration and maintenance.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Security</strong>:
-                        <ul>
-                            <li>Firewall management.</li>
-                            <li>Patch management and audits.</li>
-                        </ul>
-                    </li>
+                    <li>Linux/Unix: Proficiency with distributions like Ubuntu, CentOS, and Red Hat.</li>
+                    <li>Windows Server: Active Directory administration, Group Policies, and server roles (DNS, DHCP, IIS).</li>
+                    <li>MacOS: Understanding of Mac-based infrastructure (less common but useful in mixed environments).</li>
                 </ul>
-            `,
+            </li>
+            <li><strong>Networking</strong>:
+                <ul>
+                    <li>Network configuration: Knowledge of routers, switches, firewalls, and VLANs.</li>
+                    <li>Protocols: Understanding of TCP/IP, DNS, DHCP, FTP, SMTP, HTTP/HTTPS, SNMP.</li>
+                    <li>Network troubleshooting: Using tools like Wireshark, tcpdump, and traceroute.</li>
+                    <li>VPNs: Configuring and maintaining Virtual Private Networks.</li>
+                </ul>
+            </li>
+            <li><strong>Server Management</strong>:
+                <ul>
+                    <li>Virtualization: Expertise in Proxmox, VMware, Hyper-V, and KVM.</li>
+                    <li>Cloud Infrastructure: Experience with AWS, Azure, and Google Cloud.</li>
+                    <li>Containers: Understanding and usage of Docker and Kubernetes.</li>
+                    <li>Backup and Recovery: Implementing disaster recovery strategies and tools like Veeam and Bacula.</li>
+                </ul>
+            </li>
+            <li><strong>Security</strong>:
+                <ul>
+                    <li>Firewall Management: Configuring software and hardware firewalls.</li>
+                    <li>Intrusion Detection: Familiarity with tools like Snort and OSSEC.</li>
+                    <li>Patch Management: Applying updates and security patches.</li>
+                    <li>Identity and Access Management (IAM): Securing user accounts and permissions.</li>
+                    <li>Auditing and Compliance: Monitoring logs and ensuring systems meet regulatory standards (e.g., GDPR, HIPAA).</li>
+                </ul>
+            </li>
+            <li><strong>Scripting and Automation</strong>:
+                <ul>
+                    <li>Scripting languages: Bash, PowerShell, Python.</li>
+                    <li>Configuration Management: Tools like Ansible, Puppet, Chef, or SaltStack.</li>
+                    <li>Task Automation: Setting up Cron Jobs and task schedulers.</li>
+                </ul>
+            </li>
+            <li><strong>Monitoring and Performance</strong>:
+                <ul>
+                    <li>Monitoring Tools: Nagios, Zabbix, Prometheus, SolarWinds.</li>
+                    <li>Resource Management: Monitoring CPU, memory, disk usage, and IOPS.</li>
+                    <li>Troubleshooting: Diagnosing and resolving performance bottlenecks.</li>
+                </ul>
+            </li>
+            <li><strong>Storage and Databases</strong>:
+                <ul>
+                    <li>File Systems: Understanding NTFS, ext4, ZFS, etc.</li>
+                    <li>SAN/NAS: Managing storage systems and protocols like iSCSI, NFS, SMB.</li>
+                    <li>Database Management: Basic understanding of SQL databases like MySQL, PostgreSQL, or MSSQL.</li>
+                </ul>
+            </li>
+            <li><strong>Software and Application Management</strong>:
+                <ul>
+                    <li>Web Servers: Configuring Apache, Nginx, IIS.</li>
+                    <li>Mail Servers: Managing Postfix, Exchange, or similar systems.</li>
+                    <li>Collaboration Tools: Setting up platforms like SharePoint, Slack, or Microsoft Teams.</li>
+                </ul>
+            </li>
+        </ul>
+    `,
             education: `
-                <h3>Academic Background</h3>
+        <h3>Academic Background</h3>
+        <ul>
+            <li><strong>Bachelor's Degree in Telecommunications Technologies and Services Engineering</strong> (ongoing)
                 <ul>
-                    <li><strong>Bachelor's Degree in Telecommunications Technologies and Services Engineering</strong> (ongoing)
-                        <ul>
-                            <li>Specialization in <strong>Telematics Systems</strong>.</li>
-                            <li>Specialization in <strong>Telecommunication Systems</strong>.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Higher Vocational Training (HVT)</strong>:
-                        <ul>
-                            <li>Multiplatform Application Development (MAD).</li>
-                            <li>Network Systems Administration (NSA).</li>
-                        </ul>
-                    </li>
+                    <li>Specialization in <strong>Telematics Systems</strong>.</li>
+                    <li>Specialization in <strong>Telecommunication Systems</strong>.</li>
                 </ul>
-            `,
+            </li>
+            <li><strong>Higher Vocational Training (HVT)</strong>:
+                <ul>
+                    <li>Multiplatform Application Development (MAD).</li>
+                    <li>Network Systems Administration (NSA).</li>
+                </ul>
+            </li>
+        </ul>
+    `,
             projects: "Fetching projects from GitHub...",
             contact: `
-                <h3>Contact</h3>
-                <p>📧 <a href='mailto:Operador_rata@pm.me'>Operador_rata@pm.me</a></p>
-            `
+        <h3>Contact</h3>
+        <p>📧 <a href='mailto:Operador_rata@pm.me'>Operador_rata@pm.me</a></p>
+    `
         }
+
     };
 
     let currentLanguage = 'es';
