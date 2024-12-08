@@ -1,6 +1,6 @@
 # 🌐 Personal Website - Rat-Labs Terminal
 
-Este repositorio contiene el código fuente de mi página personal con estilo de terminal. Es una introducción a mi portafolio profesional, mostrando mis habilidades, experiencia, y proyectos en un diseño interactivo inspirado en un terminal retro.
+Este repositorio contiene el código fuente de mi página personal con estilo de terminal. Es una introducción a mi portafolio profesional, mostrando mis habilidades, experiencia, y proyectos en un diseño interactivo inspirado en un terminal moderno.
 
 ---
 
