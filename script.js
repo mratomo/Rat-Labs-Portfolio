@@ -230,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <p>📧 <a href='mailto:Operador_rata@pm.me'>Operador_rata@pm.me</a></p>
     `
         }
-
     };
 
     let currentLanguage = 'es';

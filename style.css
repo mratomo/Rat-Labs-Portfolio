@@ -12,12 +12,14 @@ body {
 
 /* Terminal Container */
 .terminal {
-    width: 80%;
-    max-width: 800px;
+    width: 800px;
+    height: 600px;
     border-radius: 8px;
     background-color: #1e1e1e;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    overflow: hidden;    /* Mantener el contenido dentro del contenedor */
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header Bar */
@@ -27,6 +29,7 @@ body {
     align-items: center;
     padding: 10px;
     background-color: #2a2a2a;
+    flex-shrink: 0; /* Evita que el header se deforme */
 }
 
 .header .buttons {
@@ -72,11 +75,11 @@ body {
 /* Terminal Body */
 .body {
     padding: 15px;
-    min-height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     gap: 10px;
+    flex: 1;              /* Para que ocupe el espacio restante */
+    overflow-y: auto;     /* Permitir scroll interno */
 }
 
 .highlight {
