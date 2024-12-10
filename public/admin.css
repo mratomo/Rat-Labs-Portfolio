@@ -1,16 +1,39 @@
 /* public/admin.css */
 
-/* General Admin Container */
+/* Definición de Variables CSS */
+:root {
+    --background: #1e1e1e; /* Fondo Principal */
+    --header-bg: #2d2d2d; /* Fondo de la Cabecera */
+    --text-color: #c5c8c6; /* Color del Texto */
+    --prompt-color: #8be9fd; /* Color del Prompt */
+    --command-color: #50fa7b; /* Color de los Comandos */
+    --link-color: #ff79c6; /* Color de los Enlaces */
+    --highlight-color: #f1fa8c; /* Color de Resaltado */
+    --button-red: #ff5555; /* Botón Cerrar */
+    --button-yellow: #f1fa8c; /* Botón Minimizar */
+    --button-green: #50fa7b; /* Botón Maximizar */
+}
+
+/* Configuración del Body */
+body {
+    background-color: var(--background); /* Establece el fondo del body */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-color);
+}
+
+/* Admin Container */
 .admin-container {
     max-width: 1000px;
     margin: 50px auto;
-    background-color: var(--background);
+    background-color: var(--background); /* Fondo del contenedor */
     padding: 20px;
     border: 1px solid var(--header-bg);
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     color: var(--text-color);
-    font-family: 'Courier New', Courier, monospace;
 }
 
 /* Admin Header */

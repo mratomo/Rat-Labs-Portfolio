@@ -2,20 +2,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Admin - Editor de Contenido</title>
-    <link rel="stylesheet" href="/admin.css"> <!-- Ruta Absoluta -->
+    <!-- Enlace al CSS Principal -->
+    <link rel="stylesheet" href="/admin.css"> <!-- Asegúrate de que la ruta es correcta -->
 </head>
 <body>
+<!-- Contenedor de Notificaciones -->
 <div class="notification" id="notification"></div>
+
+<!-- Contenedor Principal de Administración -->
 <div class="admin-container">
+    <!-- Cabecera de Administración -->
     <header class="admin-header">
         <h2>Editor de Contenido</h2>
         <button id="logout-btn" class="logout-button">Cerrar Sesión</button>
     </header>
+
+    <!-- Descripción o Instrucciones -->
     <p>Estás completamente autenticado y puedes editar las siguientes secciones. Pulsa "Guardar" para guardar cambios en el JSON.</p>
 
+    <!-- Formulario de Administración -->
     <form id="admin-form">
+        <!-- Sección: About -->
         <div class="card">
             <h3>About</h3>
             <div class="field-group">
@@ -28,6 +37,7 @@
             </div>
         </div>
 
+        <!-- Sección: Experience -->
         <div class="card">
             <h3>Experience</h3>
             <div class="field-group">
@@ -40,6 +50,7 @@
             </div>
         </div>
 
+        <!-- Sección: Skills -->
         <div class="card">
             <h3>Skills</h3>
             <div class="field-group">
@@ -52,6 +63,7 @@
             </div>
         </div>
 
+        <!-- Sección: Education -->
         <div class="card">
             <h3>Education</h3>
             <div class="field-group">
@@ -64,6 +76,7 @@
             </div>
         </div>
 
+        <!-- Sección: Contact -->
         <div class="card">
             <h3>Contact</h3>
             <div class="field-group">
@@ -76,24 +89,31 @@
             </div>
         </div>
 
+        <!-- Botón de Guardar -->
         <div class="actions">
             <button type="button" id="save" class="save-button">Guardar</button>
         </div>
     </form>
 </div>
 
+<!-- Scripts JavaScript -->
 <script>
+    // Objeto para almacenar las traducciones
     let translations = {};
 
+    /**
+     * Función para cargar las traducciones desde el servidor
+     */
     async function loadTranslations() {
         try {
             const res = await fetch('/translations.json');
             if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
+                throw new Error(`Error HTTP! status: ${res.status}`);
             }
             translations = await res.json();
-            console.log('Loaded translations:', translations);
+            console.log('Traducciones cargadas:', translations);
 
+            // Asignar valores a los textareas
             document.getElementById('about-es').value = translations.es.about;
             document.getElementById('about-en').value = translations.en.about;
 
@@ -109,11 +129,16 @@
             document.getElementById('contact-es').value = translations.es.contact;
             document.getElementById('contact-en').value = translations.en.contact;
         } catch (error) {
-            console.error('Error loading translations:', error);
+            console.error('Error al cargar las traducciones:', error);
             showNotification('Error al cargar las traducciones.', 'error');
         }
     }
 
+    /**
+     * Función para mostrar notificaciones al usuario
+     * @param {string} message - Mensaje a mostrar
+     * @param {string} type - Tipo de notificación ('success' o 'error')
+     */
     function showNotification(message, type) {
         const notification = document.getElementById('notification');
         notification.textContent = message;
@@ -123,8 +148,11 @@
         }, 3000);
     }
 
+    /**
+     * Evento para guardar las traducciones
+     */
     document.getElementById('save').addEventListener('click', async () => {
-        // Verificar que todos los campos estén llenos
+        // Lista de IDs de los campos
         const fields = [
             'about-es', 'about-en',
             'experience-es', 'experience-en',
@@ -133,6 +161,7 @@
             'contact-es', 'contact-en'
         ];
 
+        // Verificar que todos los campos estén llenos
         for (let field of fields) {
             const value = document.getElementById(field).value.trim();
             if (value === '') {
@@ -141,6 +170,7 @@
             }
         }
 
+        // Actualizar el objeto de traducciones
         translations.es.about = document.getElementById('about-es').value;
         translations.en.about = document.getElementById('about-en').value;
 
@@ -179,10 +209,14 @@
         }
     });
 
+    /**
+     * Evento para cerrar sesión
+     */
     document.getElementById('logout-btn').addEventListener('click', () => {
         window.location.href = '/logout';
     });
 
+    // Cargar las traducciones al iniciar la página
     loadTranslations();
 </script>
 </body>

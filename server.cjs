@@ -1,4 +1,4 @@
-// server.js
+// server.cjs
 
 require('dotenv').config();
 const express = require('express');
@@ -187,6 +187,9 @@ app.get('/translations.json', (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Servidor corriendo en http://localhost:3000');
+// Definir el puerto (usa la variable de entorno o 3000 por defecto)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
