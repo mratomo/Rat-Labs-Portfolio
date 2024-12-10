@@ -18,7 +18,7 @@ logs
 npm-debug.log*
 
 # Dependencias de la aplicación
-.env.example
+.env
 
 # Otros
 .DS_Store

@@ -1,26 +1,44 @@
 /* public/style.css */
 
+/* Paleta de Colores Inspirada en ParrotOS */
+:root {
+    --background: #1e1e1e; /* Fondo Principal */
+    --header-bg: #2d2d2d; /* Fondo de la Cabecera */
+    --text-color: #c5c8c6; /* Color del Texto */
+    --prompt-color: #8be9fd; /* Color del Prompt */
+    --command-color: #50fa7b; /* Color de los Comandos */
+    --link-color: #ff79c6; /* Color de los Enlaces */
+    --highlight-color: #f1fa8c; /* Color de Resaltado */
+    --button-red: #ff5555; /* Botón Cerrar */
+    --button-yellow: #f1fa8c; /* Botón Minimizar */
+    --button-green: #50fa7b; /* Botón Maximizar */
+}
+
 /* Estilos Globales */
 body {
     margin: 0;
     padding: 0;
-    background-color: #1c1c1c; /* Fondo ligeramente gris oscuro */
-    font-family: 'Courier New', Courier, monospace; /* Fuente monospace */
-    color: #00FF00; /* Letras verdes */
+    background-color: #000000; /* Fondo de pantalla negro */
+    font-family: 'Courier New', Courier, monospace; /* Fuente monoespaciada */
+    color: var(--text-color); /* Color del texto */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Terminal */
 .terminal {
-    width: 70%; /* Aumentado a 70% para ser más ancho */
-    max-width: 800px; /* Tamaño máximo ajustado */
-    height: 60vh; /* Reducido a 60% de la altura de la ventana */
-    margin: 20vh auto; /* Centrado vertical y horizontal con mayor margen */
-    border: 1px solid #4e4e4e; /* Borde gris oscuro similar a Gnome Terminal */
-    border-radius: 8px; /* Bordes más redondeados */
-    background-color: #2e3436; /* Fondo similar al de Gnome Terminal */
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); /* Sombra verde más sutil */
+    width: 80%;
+    max-width: 1000px;
+    height: 70vh;
+    border: 1px solid var(--header-bg);
+    border-radius: 10px;
+    background-color: var(--background); /* Fondo de la terminal */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 /* Encabezado de la Terminal */
@@ -28,9 +46,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 12px; /* Padding reducido */
-    background-color: #4e4e4e; /* Fondo gris oscuro para el encabezado */
-    border-bottom: 2px solid #00FF00; /* Línea verde */
+    padding: 8px 12px;
+    background-color: var(--header-bg); /* Fondo gris oscuro para la cabecera */
+    border-bottom: 2px solid var(--prompt-color); /* Línea de separación */
 }
 
 /* Botones de Ventana */
@@ -40,29 +58,32 @@ body {
     height: 12px;
     margin-right: 5px;
     border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
 }
 
 .close {
-    background-color: #FF0000; /* Rojo */
+    background-color: var(--button-red); /* Rojo */
 }
 
 .minimize {
-    background-color: #FFAA00; /* Amarillo/Anaranjado */
+    background-color: var(--button-yellow); /* Amarillo */
 }
 
 .maximize {
-    background-color: #00FF00; /* Verde */
+    background-color: var(--button-green); /* Verde */
 }
 
 /* Título de la Terminal */
 .title {
     font-size: 16px;
-    color: #00FF00; /* Verde */
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
 }
 
-/* Letras R, L, T en rojo */
-.title .red-letter {
-    color: #FF0000; /* Rojo */
+/* Letras R, L, T en color del prompt */
+.title .prompt-letter {
+    color: var(--prompt-color);
 }
 
 /* Selector de Idioma */
@@ -75,30 +96,31 @@ body {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    fill: #00FF00; /* Verde */
+    fill: var(--prompt-color);
 }
 
 /* Cuerpo de la Terminal */
 .body {
-    padding: 15px 20px; /* Padding ajustado */
-    flex: 1; /* Ocupa todo el espacio disponible */
-    background-color: #2e3436; /* Fondo similar al de Gnome Terminal */
-    overflow-y: auto; /* Habilita el scroll vertical */
-    font-size: 14px; /* Tamaño de fuente reducido */
+    padding: 15px 20px;
+    flex: 1;
+    background-color: var(--background); /* Fondo de la consola */
+    overflow-y: auto;
+    font-size: 14px;
+    color: var(--text-color);
 }
 
 /* Resaltados */
 .highlight {
-    color: #00FF00; /* Verde */
+    color: var(--command-color);
 }
 
 .highlight-red {
-    color: #FF0000; /* Rojo */
+    color: var(--button-red);
 }
 
 /* Comandos */
 .command {
-    color: #FF0000; /* Rojo para comandos */
+    color: var(--command-color);
     font-weight: bold;
 }
 
@@ -111,16 +133,17 @@ body {
 
 .prompt {
     margin-right: 5px;
-    color: #00FF00; /* Verde */
+    color: var(--prompt-color);
 }
 
 #user-input {
     flex: 1;
-    background-color: #2e3436; /* Fondo similar al de Gnome Terminal */
+    background-color: var(--background);
     border: none;
-    color: #00FF00; /* Verde */
+    color: var(--text-color);
     padding: 5px;
-    font-size: 14px; /* Tamaño de fuente reducido */
+    font-size: 14px;
+    caret-color: var(--prompt-color);
 }
 
 #user-input:focus {
@@ -130,7 +153,7 @@ body {
 /* Salida de Comandos */
 #output p {
     margin: 5px 0;
-    color: #00FF00; /* Verde */
+    color: var(--text-color);
 }
 
 /* Listas de Comandos */
@@ -140,10 +163,10 @@ ul {
 }
 
 li a {
-    color: #FF0000; /* Rojo para enlaces */
+    color: var(--link-color);
     text-decoration: none;
     position: relative;
-    padding-left: 20px; /* Espacio para el icono de flecha */
+    padding-left: 20px;
 }
 
 li a:hover {
@@ -151,10 +174,10 @@ li a:hover {
 }
 
 li a::before {
-    content: '➔'; /* Flecha hacia la derecha */
+    content: '➔';
     position: absolute;
     left: 0;
-    color: #FF0000; /* Rojo */
+    color: var(--link-color);
 }
 
 /* Scrollbar Personalizada */
@@ -163,25 +186,24 @@ li a::before {
 }
 
 .body::-webkit-scrollbar-track {
-    background: #4e4e4e;
+    background: var(--background);
 }
 
 .body::-webkit-scrollbar-thumb {
-    background-color: #00FF00;
+    background-color: var(--prompt-color);
     border-radius: 4px;
 }
 
 /* Media Query para Responsividad */
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .terminal {
-        width: 80%;
-        max-width: 700px;
+        width: 90%;
     }
 }
 
 @media (max-width: 600px) {
     .terminal {
         width: 95%;
-        height: 50vh; /* Reducido aún más en pantallas pequeñas */
+        height: 60vh;
     }
 }

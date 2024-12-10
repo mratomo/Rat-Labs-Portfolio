@@ -4,87 +4,84 @@
 <head>
     <meta charset="UTF-8" />
     <title>Admin - Editor de Contenido</title>
-    <style>
-        body {
-            background: #f0f0f0;
-            font-family: sans-serif;
-        }
-        .container {
-            max-width: 800px; margin: 0 auto;
-            background: #fff; padding: 20px;
-            border: 1px solid #ccc; margin-top: 50px;
-        }
-        h2 { margin-top: 0; }
-        textarea { width: 100%; height: 100px; }
-        .row { margin-bottom: 20px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        button { padding: 10px; }
-        #logout-btn {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="/admin.css"> <!-- Ruta Absoluta -->
 </head>
 <body>
-<div class="container">
-    <h2>Editor de Contenido</h2>
-    <p>Estás autenticado y puedes editar las siguientes secciones. Pulsa "Guardar" para guardar cambios en el JSON.</p>
+<div class="notification" id="notification"></div>
+<div class="admin-container">
+    <header class="admin-header">
+        <h2>Editor de Contenido</h2>
+        <button id="logout-btn" class="logout-button">Cerrar Sesión</button>
+    </header>
+    <p>Estás completamente autenticado y puedes editar las siguientes secciones. Pulsa "Guardar" para guardar cambios en el JSON.</p>
 
-    <div class="row">
-        <h3>About (ES)</h3>
-        <textarea id="about-es"></textarea>
-    </div>
-    <div class="row">
-        <h3>About (EN)</h3>
-        <textarea id="about-en"></textarea>
-    </div>
+    <form id="admin-form">
+        <div class="card">
+            <h3>About</h3>
+            <div class="field-group">
+                <label for="about-es">Español (ES)</label>
+                <textarea id="about-es" placeholder="Introduce el contenido en Español"></textarea>
+            </div>
+            <div class="field-group">
+                <label for="about-en">English (EN)</label>
+                <textarea id="about-en" placeholder="Enter content in English"></textarea>
+            </div>
+        </div>
 
-    <div class="row">
-        <h3>Experience (ES)</h3>
-        <textarea id="experience-es"></textarea>
-    </div>
-    <div class="row">
-        <h3>Experience (EN)</h3>
-        <textarea id="experience-en"></textarea>
-    </div>
+        <div class="card">
+            <h3>Experience</h3>
+            <div class="field-group">
+                <label for="experience-es">Español (ES)</label>
+                <textarea id="experience-es" placeholder="Introduce la experiencia en Español"></textarea>
+            </div>
+            <div class="field-group">
+                <label for="experience-en">English (EN)</label>
+                <textarea id="experience-en" placeholder="Enter experience in English"></textarea>
+            </div>
+        </div>
 
-    <div class="row">
-        <h3>Skills (ES)</h3>
-        <textarea id="skills-es"></textarea>
-    </div>
-    <div class="row">
-        <h3>Skills (EN)</h3>
-        <textarea id="skills-en"></textarea>
-    </div>
+        <div class="card">
+            <h3>Skills</h3>
+            <div class="field-group">
+                <label for="skills-es">Español (ES)</label>
+                <textarea id="skills-es" placeholder="Introduce las habilidades en Español"></textarea>
+            </div>
+            <div class="field-group">
+                <label for="skills-en">English (EN)</label>
+                <textarea id="skills-en" placeholder="Enter skills in English"></textarea>
+            </div>
+        </div>
 
-    <div class="row">
-        <h3>Education (ES)</h3>
-        <textarea id="education-es"></textarea>
-    </div>
-    <div class="row">
-        <h3>Education (EN)</h3>
-        <textarea id="education-en"></textarea>
-    </div>
+        <div class="card">
+            <h3>Education</h3>
+            <div class="field-group">
+                <label for="education-es">Español (ES)</label>
+                <textarea id="education-es" placeholder="Introduce la educación en Español"></textarea>
+            </div>
+            <div class="field-group">
+                <label for="education-en">English (EN)</label>
+                <textarea id="education-en" placeholder="Enter education in English"></textarea>
+            </div>
+        </div>
 
-    <div class="row">
-        <h3>Contact (ES)</h3>
-        <textarea id="contact-es"></textarea>
-    </div>
-    <div class="row">
-        <h3>Contact (EN)</h3>
-        <textarea id="contact-en"></textarea>
-    </div>
+        <div class="card">
+            <h3>Contact</h3>
+            <div class="field-group">
+                <label for="contact-es">Español (ES)</label>
+                <textarea id="contact-es" placeholder="Introduce el contacto en Español"></textarea>
+            </div>
+            <div class="field-group">
+                <label for="contact-en">English (EN)</label>
+                <textarea id="contact-en" placeholder="Enter contact in English"></textarea>
+            </div>
+        </div>
 
-    <div class="row">
-        <button id="save">Guardar</button>
-    </div>
-    <div class="row">
-        <button id="logout-btn">Cerrar Sesión</button>
-    </div>
+        <div class="actions">
+            <button type="button" id="save" class="save-button">Guardar</button>
+        </div>
+    </form>
 </div>
+
 <script>
     let translations = {};
 
@@ -113,11 +110,37 @@
             document.getElementById('contact-en').value = translations.en.contact;
         } catch (error) {
             console.error('Error loading translations:', error);
-            alert('Error al cargar las traducciones.');
+            showNotification('Error al cargar las traducciones.', 'error');
         }
     }
 
+    function showNotification(message, type) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = `notification show ${type}`;
+        setTimeout(() => {
+            notification.className = 'notification';
+        }, 3000);
+    }
+
     document.getElementById('save').addEventListener('click', async () => {
+        // Verificar que todos los campos estén llenos
+        const fields = [
+            'about-es', 'about-en',
+            'experience-es', 'experience-en',
+            'skills-es', 'skills-en',
+            'education-es', 'education-en',
+            'contact-es', 'contact-en'
+        ];
+
+        for (let field of fields) {
+            const value = document.getElementById(field).value.trim();
+            if (value === '') {
+                showNotification(`El campo ${field.replace('-', ' ')} no puede estar vacío.`, 'error');
+                return;
+            }
+        }
+
         translations.es.about = document.getElementById('about-es').value;
         translations.en.about = document.getElementById('about-en').value;
 
@@ -146,13 +169,13 @@
             console.log('Respuesta al guardar:', result); // Log para depuración
 
             if (response.ok && result.success) {
-                alert('Traducciones guardadas correctamente.');
+                showNotification('Traducciones guardadas correctamente.', 'success');
             } else {
                 throw new Error(result.message || 'Error desconocido al guardar.');
             }
         } catch (error) {
             console.error('Error al guardar traducciones:', error);
-            alert('Error al guardar las traducciones.');
+            showNotification('Error al guardar las traducciones.', 'error');
         }
     });
 

@@ -1,0 +1,161 @@
+/* public/admin.css */
+
+/* General Admin Container */
+.admin-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    background-color: var(--background);
+    padding: 20px;
+    border: 1px solid var(--header-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    color: var(--text-color);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Admin Header */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-header h2 {
+    color: var(--prompt-color);
+}
+
+.logout-button {
+    background-color: var(--button-red);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #e63946;
+}
+
+/* Form Styling */
+#admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Card Styling */
+.card {
+    background-color: var(--header-bg);
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card h3 {
+    color: var(--prompt-color);
+    margin-bottom: 10px;
+}
+
+/* Field Group Styling */
+.field-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.field-group label {
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.field-group textarea {
+    resize: vertical;
+    min-height: 80px;
+    padding: 10px;
+    border: 1px solid var(--button-green);
+    border-radius: 4px;
+    background-color: var(--background);
+    color: var(--text-color);
+    font-family: 'Courier New', Courier, monospace;
+    transition: border-color 0.3s ease;
+}
+
+.field-group textarea:focus {
+    border-color: var(--prompt-color);
+    outline: none;
+}
+
+/* Actions Styling */
+.actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-button {
+    background-color: var(--command-color);
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+    background-color: #50fa7b;
+}
+
+/* Notificación Estilos */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 15px 20px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1000;
+}
+
+.notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification.success {
+    background-color: var(--button-green);
+}
+
+.notification.error {
+    background-color: var(--button-red);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .admin-header h2 {
+        font-size: 20px;
+    }
+
+    .logout-button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .save-button {
+        width: 100%;
+        padding: 10px;
+    }
+}

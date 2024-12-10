@@ -4,7 +4,7 @@ let currentLanguage = 'es';
 let translations = {};
 let githubUsername = "mratomo"; // Por defecto, se actualizará tras login OAuth
 
-// Definir comandos fijos
+// Definir comandos fijos, excluyendo 'admin'
 const fixedTranslations = {
     "es": {
         "help": `
@@ -14,7 +14,6 @@ const fixedTranslations = {
             <li><a href="#">education</a>: Formación académica</li>
             <li><a href="#">projects</a>: Mis proyectos en GitHub</li>
             <li><a href="#">contact</a>: Cómo contactarme</li>
-            <li><a href="#">edit</a>: Editar contenido</li>
             <li><a href="#">exit</a>: Limpiar la consola</li>
         `,
         "projects": "Obteniendo proyectos desde GitHub..."
@@ -27,7 +26,6 @@ const fixedTranslations = {
             <li><a href="#">education</a>: Academic background</li>
             <li><a href="#">projects</a>: My GitHub projects</li>
             <li><a href="#">contact</a>: How to contact me</li>
-            <li><a href="#">edit</a>: Edit content</li>
             <li><a href="#">exit</a>: Clear the console</li>
         `,
         "projects": "Fetching projects from GitHub..."
@@ -60,26 +58,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function handleCommand(command) {
-        if (command === 'admin' || command === 'edit') {
-            const isAuthenticated = await checkAuthenticationStatus();
-            if (!isAuthenticated) {
+        if (command === 'admin') {
+            const isFullyAuthenticated = await checkAuthenticationStatus();
+            if (!isFullyAuthenticated) {
                 // Redirige al flujo OAuth
                 window.location.href = '/oauth/start';
             } else {
-                // Ya autenticado
+                // Ya autenticado completamente
                 window.location.href = 'admin.html';
             }
             return;
         }
 
         if (command === 'help') {
-            // Añadir las etiquetas HTML al vuelo
+            // Mostrar ayuda sin repetir el menú
             const helpTitle = currentLanguage === 'es' ? '<h3>Comandos Disponibles</h3>' : '<h3>Available Commands</h3>';
             const helpContent = fixedTranslations[currentLanguage].help;
             output.innerHTML += `<p>${helpTitle}</p><ul>${helpContent}</ul>`;
-            // Volver a mostrar los comandos disponibles
-            showHelp();
-            return;
+            output.scrollTop = output.scrollHeight;
+            return; // No repetir el menú de ayuda
         }
 
         if (command === 'projects') {
@@ -87,8 +84,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             output.innerHTML += `<p>${projectsTitle}${fixedTranslations[currentLanguage].projects}</p>`;
             const projects = await fetchGitHubProjects();
             output.innerHTML += `<p>${projects}</p>`;
-            // Mostrar ayuda después de ejecutar el comando
-            showHelp();
+            // Mostrar mensaje para solicitar ayuda después de ejecutar el comando
+            showPromptToHelp();
             return;
         }
 
@@ -98,6 +95,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Opcional: añadir un mensaje de salida
             const exitMessage = currentLanguage === 'es' ? 'Consola limpiada.' : 'Console cleared.';
             output.innerHTML += `<p>${exitMessage}</p>`;
+            // Mostrar mensaje para solicitar ayuda después de ejecutar el comando
+            showPromptToHelp();
             return;
         }
 
@@ -124,15 +123,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                     title = '';
             }
             output.innerHTML += `<p>${title}${translations[currentLanguage][command]}</p>`;
-            // Mostrar ayuda después de ejecutar el comando
-            showHelp();
+            // Mostrar mensaje para solicitar ayuda después de ejecutar el comando
+            showPromptToHelp();
         } else {
             const error = currentLanguage === 'es'
                 ? "Comando no reconocido. Escribe <span class='command'>help</span> para ver los comandos disponibles."
                 : "Unrecognized command. Type <span class='command'>help</span> to see available commands.";
             output.innerHTML += `<p>${error}</p>`;
-            // Mostrar ayuda después de un comando no reconocido
-            showHelp();
+            // Mostrar mensaje para solicitar ayuda después de un comando no reconocido
+            showPromptToHelp();
         }
         output.scrollTop = output.scrollHeight;
     }
@@ -158,10 +157,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            if (data.isAuthenticated && data.githubUsername) {
+            if (data.isOAuthAuthenticated && data.isPasswordAuthenticated) {
                 githubUsername = data.githubUsername;
+                return true;
             }
-            return data.isAuthenticated;
+            return false;
         } catch (error) {
             console.error('Error checking authentication status:', error);
             return false;
@@ -197,6 +197,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    function showPromptToHelp() {
+        const promptMessage = currentLanguage === 'es'
+            ? "Escribe <span class='command'>help</span> para ver los comandos disponibles."
+            : "Type <span class='command'>help</span> to see available commands.";
+        output.innerHTML += `<p>${promptMessage}</p>`;
+        output.scrollTop = output.scrollHeight;
+    }
+
     function showHelp() {
         const helpTitle = currentLanguage === 'es' ? '<h3>Comandos Disponibles</h3>' : '<h3>Available Commands</h3>';
         const helpContent = fixedTranslations[currentLanguage].help;
@@ -205,4 +213,3 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     updateLanguage();
 });
-
