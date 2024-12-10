@@ -1,0 +1,16 @@
+{
+    "es": {
+        "about": "Militar profesional desde 2001 con amplia experiencia en operaciones especiales y tecnología.",
+        "experience": "He trabajado en distintas operaciones especiales y administrando sistemas e infraestructuras.",
+        "skills": "Linux, Windows Server, Redes, Virtualización, Seguridad, Automatización.",
+        "education": "Grado en Ingeniería de Tecnologías y Servicios de Telecomunicación, CFGS en Desarrollo de Aplicaciones Multiplataforma y Administración de Sistemas Informáticos en Red.",
+        "contact": "Operador_rata@pm.me"
+    },
+    "en": {
+        "about": "Professional soldier since 2001 with extensive experience in special operations and technology.",
+        "experience": "I have worked in various special operations and managing systems and infrastructures.",
+        "skills": "Linux, Windows Server, Networking, Virtualization, Security, Automation.",
+        "education": "Bachelor's Degree in Telecommunications Technologies and Services Engineering, HVT in Multiplatform Application Development and Network Systems Administration.",
+        "contact": "Operador_rata@pm.me"
+    }
+}

@@ -6,3 +6,19 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# .gitignore
+
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependencias de la aplicación
+.env.example
+
+# Otros
+.DS_Store

@@ -1,0 +1,20 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "description": "Este repositorio contiene el código fuente de mi página personal con estilo de terminal. Es una introducción a mi portafolio profesional, mostrando mis habilidades, experiencia, y proyectos en un diseño interactivo inspirado en un terminal moderno.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {}
+}

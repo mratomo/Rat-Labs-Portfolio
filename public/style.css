@@ -1,0 +1,187 @@
+/* public/style.css */
+
+/* Estilos Globales */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1c1c1c; /* Fondo ligeramente gris oscuro */
+    font-family: 'Courier New', Courier, monospace; /* Fuente monospace */
+    color: #00FF00; /* Letras verdes */
+}
+
+/* Terminal */
+.terminal {
+    width: 70%; /* Aumentado a 70% para ser más ancho */
+    max-width: 800px; /* Tamaño máximo ajustado */
+    height: 60vh; /* Reducido a 60% de la altura de la ventana */
+    margin: 20vh auto; /* Centrado vertical y horizontal con mayor margen */
+    border: 1px solid #4e4e4e; /* Borde gris oscuro similar a Gnome Terminal */
+    border-radius: 8px; /* Bordes más redondeados */
+    background-color: #2e3436; /* Fondo similar al de Gnome Terminal */
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5); /* Sombra verde más sutil */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Encabezado de la Terminal */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px; /* Padding reducido */
+    background-color: #4e4e4e; /* Fondo gris oscuro para el encabezado */
+    border-bottom: 2px solid #00FF00; /* Línea verde */
+}
+
+/* Botones de Ventana */
+.buttons .button {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
+
+.close {
+    background-color: #FF0000; /* Rojo */
+}
+
+.minimize {
+    background-color: #FFAA00; /* Amarillo/Anaranjado */
+}
+
+.maximize {
+    background-color: #00FF00; /* Verde */
+}
+
+/* Título de la Terminal */
+.title {
+    font-size: 16px;
+    color: #00FF00; /* Verde */
+}
+
+/* Letras R, L, T en rojo */
+.title .red-letter {
+    color: #FF0000; /* Rojo */
+}
+
+/* Selector de Idioma */
+.language-selector {
+    display: flex;
+    align-items: center;
+}
+
+.language-selector .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    fill: #00FF00; /* Verde */
+}
+
+/* Cuerpo de la Terminal */
+.body {
+    padding: 15px 20px; /* Padding ajustado */
+    flex: 1; /* Ocupa todo el espacio disponible */
+    background-color: #2e3436; /* Fondo similar al de Gnome Terminal */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    font-size: 14px; /* Tamaño de fuente reducido */
+}
+
+/* Resaltados */
+.highlight {
+    color: #00FF00; /* Verde */
+}
+
+.highlight-red {
+    color: #FF0000; /* Rojo */
+}
+
+/* Comandos */
+.command {
+    color: #FF0000; /* Rojo para comandos */
+    font-weight: bold;
+}
+
+/* Línea de Entrada */
+.input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.prompt {
+    margin-right: 5px;
+    color: #00FF00; /* Verde */
+}
+
+#user-input {
+    flex: 1;
+    background-color: #2e3436; /* Fondo similar al de Gnome Terminal */
+    border: none;
+    color: #00FF00; /* Verde */
+    padding: 5px;
+    font-size: 14px; /* Tamaño de fuente reducido */
+}
+
+#user-input:focus {
+    outline: none;
+}
+
+/* Salida de Comandos */
+#output p {
+    margin: 5px 0;
+    color: #00FF00; /* Verde */
+}
+
+/* Listas de Comandos */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li a {
+    color: #FF0000; /* Rojo para enlaces */
+    text-decoration: none;
+    position: relative;
+    padding-left: 20px; /* Espacio para el icono de flecha */
+}
+
+li a:hover {
+    text-decoration: underline;
+}
+
+li a::before {
+    content: '➔'; /* Flecha hacia la derecha */
+    position: absolute;
+    left: 0;
+    color: #FF0000; /* Rojo */
+}
+
+/* Scrollbar Personalizada */
+.body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.body::-webkit-scrollbar-track {
+    background: #4e4e4e;
+}
+
+.body::-webkit-scrollbar-thumb {
+    background-color: #00FF00;
+    border-radius: 4px;
+}
+
+/* Media Query para Responsividad */
+@media (max-width: 800px) {
+    .terminal {
+        width: 80%;
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 600px) {
+    .terminal {
+        width: 95%;
+        height: 50vh; /* Reducido aún más en pantallas pequeñas */
+    }
+}

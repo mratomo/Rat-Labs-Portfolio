@@ -1,0 +1,166 @@
+<!-- protected/admin.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin - Editor de Contenido</title>
+    <style>
+        body {
+            background: #f0f0f0;
+            font-family: sans-serif;
+        }
+        .container {
+            max-width: 800px; margin: 0 auto;
+            background: #fff; padding: 20px;
+            border: 1px solid #ccc; margin-top: 50px;
+        }
+        h2 { margin-top: 0; }
+        textarea { width: 100%; height: 100px; }
+        .row { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        button { padding: 10px; }
+        #logout-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Editor de Contenido</h2>
+    <p>Estás autenticado y puedes editar las siguientes secciones. Pulsa "Guardar" para guardar cambios en el JSON.</p>
+
+    <div class="row">
+        <h3>About (ES)</h3>
+        <textarea id="about-es"></textarea>
+    </div>
+    <div class="row">
+        <h3>About (EN)</h3>
+        <textarea id="about-en"></textarea>
+    </div>
+
+    <div class="row">
+        <h3>Experience (ES)</h3>
+        <textarea id="experience-es"></textarea>
+    </div>
+    <div class="row">
+        <h3>Experience (EN)</h3>
+        <textarea id="experience-en"></textarea>
+    </div>
+
+    <div class="row">
+        <h3>Skills (ES)</h3>
+        <textarea id="skills-es"></textarea>
+    </div>
+    <div class="row">
+        <h3>Skills (EN)</h3>
+        <textarea id="skills-en"></textarea>
+    </div>
+
+    <div class="row">
+        <h3>Education (ES)</h3>
+        <textarea id="education-es"></textarea>
+    </div>
+    <div class="row">
+        <h3>Education (EN)</h3>
+        <textarea id="education-en"></textarea>
+    </div>
+
+    <div class="row">
+        <h3>Contact (ES)</h3>
+        <textarea id="contact-es"></textarea>
+    </div>
+    <div class="row">
+        <h3>Contact (EN)</h3>
+        <textarea id="contact-en"></textarea>
+    </div>
+
+    <div class="row">
+        <button id="save">Guardar</button>
+    </div>
+    <div class="row">
+        <button id="logout-btn">Cerrar Sesión</button>
+    </div>
+</div>
+<script>
+    let translations = {};
+
+    async function loadTranslations() {
+        try {
+            const res = await fetch('/translations.json');
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            translations = await res.json();
+            console.log('Loaded translations:', translations);
+
+            document.getElementById('about-es').value = translations.es.about;
+            document.getElementById('about-en').value = translations.en.about;
+
+            document.getElementById('experience-es').value = translations.es.experience;
+            document.getElementById('experience-en').value = translations.en.experience;
+
+            document.getElementById('skills-es').value = translations.es.skills;
+            document.getElementById('skills-en').value = translations.en.skills;
+
+            document.getElementById('education-es').value = translations.es.education;
+            document.getElementById('education-en').value = translations.en.education;
+
+            document.getElementById('contact-es').value = translations.es.contact;
+            document.getElementById('contact-en').value = translations.en.contact;
+        } catch (error) {
+            console.error('Error loading translations:', error);
+            alert('Error al cargar las traducciones.');
+        }
+    }
+
+    document.getElementById('save').addEventListener('click', async () => {
+        translations.es.about = document.getElementById('about-es').value;
+        translations.en.about = document.getElementById('about-en').value;
+
+        translations.es.experience = document.getElementById('experience-es').value;
+        translations.en.experience = document.getElementById('experience-en').value;
+
+        translations.es.skills = document.getElementById('skills-es').value;
+        translations.en.skills = document.getElementById('skills-en').value;
+
+        translations.es.education = document.getElementById('education-es').value;
+        translations.en.education = document.getElementById('education-en').value;
+
+        translations.es.contact = document.getElementById('contact-es').value;
+        translations.en.contact = document.getElementById('contact-en').value;
+
+        console.log('Enviando traducciones:', translations); // Log para depuración
+
+        try {
+            const response = await fetch('/save-translations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(translations)
+            });
+
+            const result = await response.json();
+            console.log('Respuesta al guardar:', result); // Log para depuración
+
+            if (response.ok && result.success) {
+                alert('Traducciones guardadas correctamente.');
+            } else {
+                throw new Error(result.message || 'Error desconocido al guardar.');
+            }
+        } catch (error) {
+            console.error('Error al guardar traducciones:', error);
+            alert('Error al guardar las traducciones.');
+        }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        window.location.href = '/logout';
+    });
+
+    loadTranslations();
+</script>
+</body>
+</html>

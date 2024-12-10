@@ -1,0 +1,208 @@
+// public/script.js
+
+let currentLanguage = 'es';
+let translations = {};
+let githubUsername = "mratomo"; // Por defecto, se actualizará tras login OAuth
+
+// Definir comandos fijos
+const fixedTranslations = {
+    "es": {
+        "help": `
+            <li><a href="#">about</a>: Perfil profesional</li>
+            <li><a href="#">experience</a>: Experiencia laboral</li>
+            <li><a href="#">skills</a>: Habilidades técnicas</li>
+            <li><a href="#">education</a>: Formación académica</li>
+            <li><a href="#">projects</a>: Mis proyectos en GitHub</li>
+            <li><a href="#">contact</a>: Cómo contactarme</li>
+            <li><a href="#">edit</a>: Editar contenido</li>
+            <li><a href="#">exit</a>: Limpiar la consola</li>
+        `,
+        "projects": "Obteniendo proyectos desde GitHub..."
+    },
+    "en": {
+        "help": `
+            <li><a href="#">about</a>: Professional profile</li>
+            <li><a href="#">experience</a>: Work experience</li>
+            <li><a href="#">skills</a>: Technical skills</li>
+            <li><a href="#">education</a>: Academic background</li>
+            <li><a href="#">projects</a>: My GitHub projects</li>
+            <li><a href="#">contact</a>: How to contact me</li>
+            <li><a href="#">edit</a>: Edit content</li>
+            <li><a href="#">exit</a>: Clear the console</li>
+        `,
+        "projects": "Fetching projects from GitHub..."
+    }
+};
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadTranslations();
+    const input = document.getElementById('user-input');
+    const output = document.getElementById('output');
+    const languageSwitcher = document.getElementById('language-switcher');
+
+    languageSwitcher.addEventListener('change', () => {
+        currentLanguage = languageSwitcher.value;
+        updateLanguage();
+    });
+
+    input.addEventListener('keypress', async (e) => {
+        if (e.key === 'Enter') {
+            const userInput = input.value.trim();
+            input.value = '';
+            await handleCommand(userInput);
+        }
+    });
+
+    function updateLanguage() {
+        document.querySelectorAll('[data-lang]').forEach(el => {
+            el.style.display = el.getAttribute('data-lang') === currentLanguage ? 'block' : 'none';
+        });
+    }
+
+    async function handleCommand(command) {
+        if (command === 'admin' || command === 'edit') {
+            const isAuthenticated = await checkAuthenticationStatus();
+            if (!isAuthenticated) {
+                // Redirige al flujo OAuth
+                window.location.href = '/oauth/start';
+            } else {
+                // Ya autenticado
+                window.location.href = 'admin.html';
+            }
+            return;
+        }
+
+        if (command === 'help') {
+            // Añadir las etiquetas HTML al vuelo
+            const helpTitle = currentLanguage === 'es' ? '<h3>Comandos Disponibles</h3>' : '<h3>Available Commands</h3>';
+            const helpContent = fixedTranslations[currentLanguage].help;
+            output.innerHTML += `<p>${helpTitle}</p><ul>${helpContent}</ul>`;
+            // Volver a mostrar los comandos disponibles
+            showHelp();
+            return;
+        }
+
+        if (command === 'projects') {
+            const projectsTitle = currentLanguage === 'es' ? '<h3>Proyectos</h3>' : '<h3>Projects</h3>';
+            output.innerHTML += `<p>${projectsTitle}${fixedTranslations[currentLanguage].projects}</p>`;
+            const projects = await fetchGitHubProjects();
+            output.innerHTML += `<p>${projects}</p>`;
+            // Mostrar ayuda después de ejecutar el comando
+            showHelp();
+            return;
+        }
+
+        if (command === 'exit') {
+            // Limpiar la consola
+            output.innerHTML = '';
+            // Opcional: añadir un mensaje de salida
+            const exitMessage = currentLanguage === 'es' ? 'Consola limpiada.' : 'Console cleared.';
+            output.innerHTML += `<p>${exitMessage}</p>`;
+            return;
+        }
+
+        if (translations[currentLanguage][command]) {
+            // Añadir las etiquetas HTML al vuelo
+            let title = '';
+            switch (command) {
+                case 'about':
+                    title = currentLanguage === 'es' ? '<h3>Perfil Profesional</h3>' : '<h3>Professional Profile</h3>';
+                    break;
+                case 'experience':
+                    title = currentLanguage === 'es' ? '<h3>Experiencia Laboral</h3>' : '<h3>Work Experience</h3>';
+                    break;
+                case 'skills':
+                    title = currentLanguage === 'es' ? '<h3>Habilidades Técnicas</h3>' : '<h3>Technical Skills</h3>';
+                    break;
+                case 'education':
+                    title = currentLanguage === 'es' ? '<h3>Formación Académica</h3>' : '<h3>Academic Background</h3>';
+                    break;
+                case 'contact':
+                    title = currentLanguage === 'es' ? '<h3>Contacto</h3>' : '<h3>Contact</h3>';
+                    break;
+                default:
+                    title = '';
+            }
+            output.innerHTML += `<p>${title}${translations[currentLanguage][command]}</p>`;
+            // Mostrar ayuda después de ejecutar el comando
+            showHelp();
+        } else {
+            const error = currentLanguage === 'es'
+                ? "Comando no reconocido. Escribe <span class='command'>help</span> para ver los comandos disponibles."
+                : "Unrecognized command. Type <span class='command'>help</span> to see available commands.";
+            output.innerHTML += `<p>${error}</p>`;
+            // Mostrar ayuda después de un comando no reconocido
+            showHelp();
+        }
+        output.scrollTop = output.scrollHeight;
+    }
+
+    async function loadTranslations() {
+        try {
+            const res = await fetch('/translations.json');
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            translations = await res.json();
+            console.log('Loaded translations:', translations);
+        } catch (error) {
+            console.error('Error loading translations:', error);
+            alert('Error al cargar las traducciones.');
+        }
+    }
+
+    async function checkAuthenticationStatus() {
+        try {
+            const response = await fetch('/check-auth');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data.isAuthenticated && data.githubUsername) {
+                githubUsername = data.githubUsername;
+            }
+            return data.isAuthenticated;
+        } catch (error) {
+            console.error('Error checking authentication status:', error);
+            return false;
+        }
+    }
+
+    async function fetchGitHubProjects() {
+        try {
+            const response = await fetch(`https://api.github.com/users/${githubUsername}/repos`);
+            if (!response.ok) {
+                throw new Error(`GitHub API error! status: ${response.status}`);
+            }
+            const repos = await response.json();
+
+            if (!Array.isArray(repos) || repos.length === 0) {
+                return currentLanguage === 'es'
+                    ? "No hay repositorios públicos en esta cuenta de GitHub."
+                    : "No public repositories found for this GitHub account.";
+            }
+
+            let projectList = `<ul>`;
+            repos.forEach(repo => {
+                projectList += `<li><a href="${repo.html_url}" target="_blank">${repo.name}</a></li>`;
+            });
+            projectList += `</ul>`;
+            return projectList;
+
+        } catch (error) {
+            console.error('Error fetching GitHub projects:', error);
+            return currentLanguage === 'es'
+                ? "Error al obtener los repositorios. Por favor, intenta más tarde."
+                : "Error fetching repositories. Please try again later.";
+        }
+    }
+
+    function showHelp() {
+        const helpTitle = currentLanguage === 'es' ? '<h3>Comandos Disponibles</h3>' : '<h3>Available Commands</h3>';
+        const helpContent = fixedTranslations[currentLanguage].help;
+        output.innerHTML += `<p>${helpTitle}</p><ul>${helpContent}</ul>`;
+    }
+
+    updateLanguage();
+});
+
