@@ -1,16 +1,16 @@
 {
     "es": {
-        "about": "PRUEBA PARA EL VIDEO",
-        "experience": "LO MISMO QUE ARRIBA:\n\nPero vamos a ver como quedan las cosas",
-        "skills": "pocas",
-        "education": "ninguna, en persona soy muy borde",
-        "contact": "OPERADOR_RATA@PM.ME"
+        "about": "Escribe aquí una breve descripción sobre ti.",
+        "experience": "Escribe aquí sobre tu experiencia profesional.",
+        "skills": "Escribe aquí tus habilidades principales.",
+        "education": "Escribe aquí tu formación académica.",
+        "contact": "Escribe aquí tu correo electrónico u otros datos de contacto."
     },
     "en": {
-        "about": "PRUEBAS, PERO EN INGLES",
-        "experience": "An esnou frai, on e colei grey chicago mun , beibibeibu charlishin de gueeeetoooooo...",
-        "skills": "poqueishon",
-        "education": "NO HABLA TU IDIOMO",
-        "contact": "email: mr_atomo@pm.me"
+        "about": "Write a short description about yourself here.",
+        "experience": "Write about your professional experience here.",
+        "skills": "Write your main skills here.",
+        "education": "Write your academic background here.",
+        "contact": "Write your email or other contact information here."
     }
 }
