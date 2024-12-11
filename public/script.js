@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (translations[currentLanguage][command]) {
             // Añadir las etiquetas HTML al vuelo
-            let title = '';
+            let title;
             switch (command) {
                 case 'about':
                     title = currentLanguage === 'es' ? '<h3>Perfil Profesional</h3>' : '<h3>Professional Profile</h3>';
@@ -205,11 +205,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         output.scrollTop = output.scrollHeight;
     }
 
-    function showHelp() {
-        const helpTitle = currentLanguage === 'es' ? '<h3>Comandos Disponibles</h3>' : '<h3>Available Commands</h3>';
-        const helpContent = fixedTranslations[currentLanguage].help;
-        output.innerHTML += `<p>${helpTitle}</p><ul>${helpContent}</ul>`;
-    }
 
     updateLanguage();
 });

@@ -34,21 +34,7 @@ const AUTHORIZED_GITHUB_USERNAME = process.env.AUTHORIZED_GITHUB_USERNAME;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 const GITHUB_OAUTH_URL = "https://github.com/login/oauth";
 
-// Middleware para verificar autenticación OAuth
-function isOAuthAuthenticated(req, res, next) {
-    if (req.session.isOAuthAuthenticated) {
-        return next();
-    }
-    res.status(401).json({ success: false, message: 'No estás autenticado vía OAuth.' });
-}
 
-// Middleware para verificar autenticación por contraseña
-function isPasswordAuthenticated(req, res, next) {
-    if (req.session.isPasswordAuthenticated) {
-        return next();
-    }
-    res.status(401).json({ success: false, message: 'No estás autenticado por contraseña.' });
-}
 
 // Middleware para verificar ambas autenticaciones
 function isFullyAuthenticated(req, res, next) {
@@ -60,13 +46,14 @@ function isFullyAuthenticated(req, res, next) {
 
 // Endpoint para iniciar OAuth con GitHub
 app.get('/oauth/start', (req, res) => {
-    const host = req.headers.host;
-    const protocol = req.protocol;
-    const redirectUri = `${protocol}://${host}/oauth/callback`;
+    // Usar una variable de entorno para el redirectUri
+    const redirectUri = process.env.REDIRECT_URI || `${req.protocol}://${req.headers.host}/oauth/callback`;
     const url = `${GITHUB_OAUTH_URL}/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user`;
+
     console.log(`Redirecting to GitHub OAuth URL: ${url}`); // Log para depuración
     res.redirect(url);
 });
+
 
 // Callback de GitHub OAuth usando axios
 app.get('/oauth/callback', async (req, res) => {
