@@ -1,114 +1,138 @@
-# 🌐 Personal Website - Rat-Labs Terminal
+### 🐭 **Rat-Labs Portfolio** 🖥️
 
-Este repositorio contiene el código fuente de mi página personal con estilo de terminal. Es una introducción a mi portafolio profesional, mostrando mis habilidades, experiencia, y proyectos en un diseño interactivo inspirado en un terminal moderno.
-
----
-
-## 🚀 Tecnologías utilizadas
-
-El proyecto está construido con las siguientes tecnologías y herramientas:
-
-### **Frontend**
-- **HTML5**: Para la estructura de la página.
-- **CSS3**: Estilo y diseño, utilizando:
-  - Animaciones CSS para efectos interactivos.
-  - Diseño adaptable para una experiencia óptima en todos los dispositivos.
-- **JavaScript**: Para la funcionalidad dinámica e interactiva, incluyendo:
-  - Terminal interactiva.
-  - Conmutador de idioma (Español/Inglés).
-  - Comandos personalizados que muestran información.
-
-### **Backend/Integraciones**
-- **GitHub Pages**: Servicio de hosting para desplegar la página estática.
-- **GitHub API**: Integración para listar automáticamente los repositorios públicos de GitHub en la sección de proyectos.
-
-### **Gestión y configuración**
-- **Jekyll**: Para la generación de páginas estáticas (opcional si usas configuraciones avanzadas de GitHub Pages).
-- **Actions y Workflows de GitHub**: Automatización del despliegue a través de `actions/deploy-pages`.
+**Rat-Labs Portfolio** es una aplicación de terminal interactiva 🖱️ desarrollada en **Node.js** 🌐, con soporte para autenticación **OAuth con GitHub** 🔑. La app está diseñada para ofrecer una experiencia segura 🔒 y personalizable, con un despliegue fácil mediante **Docker** 🐳.
 
 ---
 
-## 🖥️ Funcionalidades principales
+## ✨ **Características**
 
-- **Diseño estilo terminal**: Inspirado en consolas retro con un toque moderno.
-- **Soporte multilenguaje**: Español e Inglés, con un selector de idioma.
-- **Terminal interactiva**:
-  - Comandos disponibles:
-    - `help`: Lista de comandos disponibles.
-    - `about`: Muestra mi perfil profesional.
-    - `experience`: Detalla mi experiencia laboral.
-    - `skills`: Enumera mis habilidades técnicas.
-    - `education`: Presenta mi formación académica.
-    - `projects`: Lista automáticamente mis proyectos de GitHub.
-    - `contact`: Muestra mis datos de contacto.
-  - Comandos adicionales pueden ser configurados fácilmente.
-- **Integración dinámica con GitHub**:
-  - Muestra proyectos directamente desde mi perfil de GitHub mediante la API pública.
+### 🎨 **Frontend**
+- 🖥️ **Terminal interactiva**: 
+- 🌍 **Multilenguaje**: Soporte para Español e Inglés.
+- 💬 **Comandos disponibles**:
+  - **`about`**: 📝 Información del perfil profesional.
+  - **`experience`**: 💼 Experiencia laboral.
+  - **`skills`**: 🛠️ Lista de habilidades técnicas.
+  - **`education`**: 🎓 Formación académica.
+  - **`projects`**: 📂 Proyectos públicos en GitHub. (Una vez autorizado el usuario por primera vez y editado el texto, recupera sus repos publicos automaticamente)
+  - **`contact`**: 📧 Información de contacto.
+  - **`help`**: 🆘 Ayuda con comandos disponibles.
+  - **`admin`**: 🔐 Acceso al panel de administración. (comando oculto)
+  - **`exit`**: 🚪 Limpia la consola.
+
+### 🔒 **Backend**
+- **OAuth con GitHub**:
+  - 🚀 Autenticación segura mediante GitHub.
+  - ✅ Verificación de usuario autorizado configurado.
+- **Segunda capa de autenticación**:
+  - Acceso administrativo protegido con contraseña.
+- **Gestión de Contenidos**:
+  - ✍️ Edición de los textos del portfolio desde el panel de administración.
+  - 📁 Datos persistentes almacenados en `translations.json`.
 
 ---
 
-## ⚙️ Configuración del proyecto
+## 🛡️ **Seguridad**
+1. 🔐 **Protección de Sesión**: Cookies `httpOnly` protegidas con `SESSION_SECRET`.
+2. ✅ **Validación de Usuarios**: Solo usuarios configurados en `AUTHORIZED_GITHUB_USERNAME` pueden acceder al panel.
+3. 🌍 **CORS**: Solo solicitudes desde el frontend autorizado son aceptadas.
 
-### **Requisitos previos**
-1. **Node.js** (opcional si quieres construir recursos estáticos avanzados).
-2. **Git** instalado en tu máquina.
+---
 
-### **Pasos de instalación**
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/mratomo/personal-website.git
-   cd personal-website
-   ```
-2. Si utilizas Jekyll para personalizaciones avanzadas:
-   - Instala [Jekyll](https://jekyllrb.com/docs/installation/) y las dependencias del proyecto.
-   ```bash
-   bundle install
+## ⚙️ **Requisitos**
+
+1. **Software necesario**:
+   - 🐳 [Docker](https://www.docker.com/).
+   - 🌐 Node.js (solo para desarrollo local).
+
+2. **Variables de entorno**:
+   Configura las siguientes variables de entorno antes de iniciar la aplicación:
+
+   ```env
+   GITHUB_CLIENT_ID=tu_cliente_id
+   GITHUB_CLIENT_SECRET=tu_cliente_secreto
+   ADMIN_PASSWORD=tu_contraseña_admin
+   SESSION_SECRET=tu_secreto_de_sesion
+   REDIRECT_URI=https://tu-dominio.com/oauth/callback
+   AUTHORIZED_GITHUB_USERNAME=tu_usuario_github
    ```
 
-3. Abre el archivo `index.html` en tu navegador o utiliza un servidor local para previsualizar:
+   - **`GITHUB_CLIENT_ID` y `GITHUB_CLIENT_SECRET`**: Se obtienen al registrar la aplicación en [GitHub Developers](https://github.com/settings/developers).
+   - **`REDIRECT_URI`**: URI configurada en la app de GitHub para manejar el callback de OAuth.
+   - **`AUTHORIZED_GITHUB_USERNAME`**: Usuario autorizado para acceder al panel administrativo.
+
+---
+
+## 🐳 **Instrucciones de Despliegue con Docker**
+
+### **1. Construcción de la Imagen Docker**
+Ejecuta este comando para construir la imagen:
+
+```bash
+docker build -t portfolio:latest .
+```
+
+### **2. Lanzar el Contenedor**
+Ejecuta el contenedor pasando las variables de entorno como argumentos:
+
+```bash
+docker run -d \
+    -e GITHUB_CLIENT_ID=tu_cliente_id \
+    -e GITHUB_CLIENT_SECRET=tu_cliente_secreto \
+    -e ADMIN_PASSWORD=tu_contraseña_admin \
+    -e SESSION_SECRET=tu_secreto_de_sesion \
+    -e REDIRECT_URI=https://tu-dominio.com/oauth/callback \
+    -e AUTHORIZED_GITHUB_USERNAME=tu_usuario_github \
+    -p 3000:3000 \
+    portfolio:latest
+```
+
+---
+
+## 🔧 **Desarrollo Local**
+
+1. **Instala dependencias**:
+
    ```bash
-   npx http-server .
+   npm install
    ```
 
----
+2. **Configura variables en `.env`.**
 
-## 📦 Despliegue
+3. **Inicia la aplicación**:
 
-El despliegue se realiza automáticamente en **GitHub Pages** mediante GitHub Actions. 
+   ```bash
+   npm start
+   ```
 
-### **Flujo de despliegue**
-1. Cada push a la rama `main` desencadena el workflow definido en `.github/workflows/deploy.yml`.
-2. El contenido generado se publica en la URL configurada en **Settings > Pages** del repositorio.
-
----
-
-## 🌟 Personalización
-
-Para personalizar la página:
-1. Modifica las secciones del terminal en `script.js` para incluir tus propios comandos y textos.
-2. Cambia los estilos en `style.css` para ajustar el diseño a tus preferencias.
-3. Configura los idiomas en el objeto `translations` dentro del archivo `script.js`.
+4. **Accede** a [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 🛠️ Herramientas adicionales
+## ✍️ **Configuración de OAuth en GitHub**
 
-- **VS Code**: Editor recomendado para trabajar en este proyecto.
-- **Postman**: Para probar la integración con la API de GitHub.
+1. Ve a [GitHub Developers Settings](https://github.com/settings/developers).
+2. Crea una nueva aplicación OAuth:
+   - **Nombre**: Nombre de tu proyecto.
+   - **Homepage URL**: `https://tu-dominio.com` (o la URL donde se desplegará).
+   - **Authorization callback URL**: `https://tu-dominio.com/oauth/callback`.
 
----
-
-## 🧑‍💻 Autor
-
-**Rat-Labs**  
-[GitHub](https://github.com/mratomo) | [Correo](mailto:Operador_rata@pm.me)
+3. Guarda el **Client ID** y **Client Secret**, y configúralos como variables de entorno.
 
 ---
 
-## 📄 Licencia
-
-Este proyecto está licenciado bajo la [MIT License](LICENSE).
+## 🛡️ **Seguridad Implementada**
+- 🚦 Redirección segura con `REDIRECT_URI`.
+- 🔐 Validación estricta de usuarios autorizados.
+- 🍪 Sesiones protegidas con cookies seguras.
+- 🌍 Restricción de CORS para el frontend configurado.
 
 ---
 
-Si necesitas más personalización o ajustes, házmelo saber. 😊
+## 🤝 **Contribuciones**
+¡Se aceptan contribuciones! Abre un **issue** o un **pull request** en el repositorio. 
+
+
+---
+
+Si tienes alguna sugerencia, házmelo saber. 😊
