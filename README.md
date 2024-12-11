@@ -1,6 +1,6 @@
 ### 🐭 **Rat-Labs Portfolio** 🖥️
 
-**Rat-Labs Portfolio** es una aplicación de terminal interactiva 🖱️ desarrollada en **Node.js** 🌐, con soporte para autenticación **OAuth con GitHub** 🔑. La app está diseñada para ofrecer una experiencia segura 🔒 y personalizable, con un despliegue fácil mediante **Docker** 🐳.
+**Rat-Labs Portfolio** es una web que emula un terminal de forma interactiva 🖱️ desarrollada en **Node.js** 🌐, con soporte para autenticación **OAuth con GitHub** 🔑. La app está diseñada para ofrecer una experiencia segura 🔒 y personalizable, con un despliegue fácil mediante **Docker** 🐳.
 
 ---
 
