@@ -1,16 +1,17 @@
 {
     "es": {
-        "about": "Escribe aquí una breve descripción sobre ti.",
-        "experience": "Escribe aquí sobre tu experiencia profesional.",
-        "skills": "Escribe aquí tus habilidades principales.",
-        "education": "Escribe aquí tu formación académica.",
-        "contact": "Escribe aquí tu correo electrónico u otros datos de contacto."
+        "about": "## Perfil Profesional\nCompleta aquí tu información sobre el perfil profesional en formato Markdown.",
+        "experience": "## Experiencia Laboral\nCompleta aquí tu información sobre experiencia laboral en formato Markdown.",
+        "skills": "## Habilidades Técnicas\nCompleta aquí tu información sobre habilidades técnicas en formato Markdown.",
+        "education": "## Formación Académica\nCompleta aquí tu información sobre la formación académica en formato Markdown.",
+        "contact": "## Contacto\nCompleta aquí tu información de contacto en formato Markdown."
     },
     "en": {
-        "about": "Write a short description about yourself here.",
-        "experience": "Write about your professional experience here.",
-        "skills": "Write your main skills here.",
-        "education": "Write your academic background here.",
-        "contact": "Write your email or other contact information here."
+        "about": "## Professional Profile\nComplete your information about the professional profile in Markdown format.",
+        "experience": "## Work Experience\nComplete your information about work experience in Markdown format.",
+        "skills": "## Technical Skills\nComplete your information about technical skills in Markdown format.",
+        "education": "## Education\nComplete your information about education in Markdown format.",
+        "contact": "## Contact Information\nComplete your contact information in Markdown format."
     }
 }
+

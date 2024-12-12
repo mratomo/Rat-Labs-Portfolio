@@ -1,4 +1,5 @@
-### 🐭 **Rat-Labs Portfolio** 🖥️
+
+# 🐭 **Rat-Labs Portfolio** 🖥️
 
 **Rat-Labs Portfolio** es una web que emula un terminal de forma interactiva 🖱️ desarrollada en **Node.js** 🌐, con soporte para autenticación **OAuth con GitHub** 🔑. La app está diseñada para ofrecer una experiencia segura 🔒 y personalizable, con un despliegue fácil mediante **Docker** 🐳.
 
@@ -7,17 +8,17 @@
 ## ✨ **Características**
 
 ### 🎨 **Frontend**
-- 🖥️ **Terminal interactiva**: 
+- 🖥️ **Terminal interactiva** 
 - 🌍 **Multilenguaje**: Soporte para Español e Inglés.
 - 💬 **Comandos disponibles**:
   - **`about`**: 📝 Información del perfil profesional.
   - **`experience`**: 💼 Experiencia laboral.
   - **`skills`**: 🛠️ Lista de habilidades técnicas.
   - **`education`**: 🎓 Formación académica.
-  - **`projects`**: 📂 Proyectos públicos en GitHub. (Una vez autorizado el usuario por primera vez y editado el texto, recupera sus repos publicos automaticamente)
+  - **`projects`**: 📂 Proyectos públicos en GitHub (recupera automáticamente los repositorios públicos del usuario autorizado).
   - **`contact`**: 📧 Información de contacto.
   - **`help`**: 🆘 Ayuda con comandos disponibles.
-  - **`admin`**: 🔐 Acceso al panel de administración. (comando oculto)
+  - **`admin`**: 🔐 Acceso al panel de administración (comando oculto).
   - **`exit`**: 🚪 Limpia la consola.
 
 ### 🔒 **Backend**
@@ -27,8 +28,28 @@
 - **Segunda capa de autenticación**:
   - Acceso administrativo protegido con contraseña.
 - **Gestión de Contenidos**:
-  - ✍️ Edición de los textos del portfolio desde el panel de administración.
+  - ✍️ Edición de los textos del portfolio desde el panel de administración con soporte para Markdown:
   - 📁 Datos persistentes almacenados en `translations.json`.
+  
+```json 
+  {
+"es": {
+"about": "## Perfil Profesional\nCompleta aquí tu información sobre el perfil profesional en formato Markdown.",
+"experience": "## Experiencia Laboral\nCompleta aquí tu información sobre experiencia laboral en formato Markdown.",
+"skills": "## Habilidades Técnicas\nCompleta aquí tu información sobre habilidades técnicas en formato Markdown.",
+"education": "## Formación Académica\nCompleta aquí tu información sobre la formación académica en formato Markdown.",
+"contact": "## Contacto\nCompleta aquí tu información de contacto en formato Markdown."
+},
+"en": {
+"about": "## Professional Profile\nComplete your information about the professional profile in Markdown format.",
+"experience": "## Work Experience\nComplete your information about work experience in Markdown format.",
+"skills": "## Technical Skills\nComplete your information about technical skills in Markdown format.",
+"education": "## Education\nComplete your information about education in Markdown format.",
+"contact": "## Contact Information\nComplete your contact information in Markdown format."
+}
+}
+```
+
 
 ---
 
@@ -57,9 +78,9 @@
    AUTHORIZED_GITHUB_USERNAME=tu_usuario_github
    ```
 
-   - **`GITHUB_CLIENT_ID` y `GITHUB_CLIENT_SECRET`**: Se obtienen al registrar la aplicación en [GitHub Developers](https://github.com/settings/developers).
-   - **`REDIRECT_URI`**: URI configurada en la app de GitHub para manejar el callback de OAuth.
-   - **`AUTHORIZED_GITHUB_USERNAME`**: Usuario autorizado para acceder al panel administrativo.
+- **`GITHUB_CLIENT_ID` y `GITHUB_CLIENT_SECRET`**: Se obtienen al registrar la aplicación en [GitHub Developers](https://github.com/settings/developers).
+- **`REDIRECT_URI`**: URI configurada en la app de GitHub para manejar el callback de OAuth.
+- **`AUTHORIZED_GITHUB_USERNAME`**: Usuario autorizado para acceder al panel administrativo.
 
 ---
 
@@ -113,9 +134,9 @@ docker run -d \
 
 1. Ve a [GitHub Developers Settings](https://github.com/settings/developers).
 2. Crea una nueva aplicación OAuth:
-   - **Nombre**: Nombre de tu proyecto.
-   - **Homepage URL**: `https://tu-dominio.com` (o la URL donde se desplegará).
-   - **Authorization callback URL**: `https://tu-dominio.com/oauth/callback`.
+    - **Nombre**: Nombre de tu proyecto.
+    - **Homepage URL**: `https://tu-dominio.com` (o la URL donde se desplegará).
+    - **Authorization callback URL**: `https://tu-dominio.com/oauth/callback`.
 
 3. Guarda el **Client ID** y **Client Secret**, y configúralos como variables de entorno.
 
@@ -129,10 +150,19 @@ docker run -d \
 
 ---
 
-## 🤝 **Contribuciones**
-¡Se aceptan contribuciones! Abre un **issue** o un **pull request** en el repositorio. 
+## ✨ **Novedades Implementadas**
+1. **Renderizado Markdown Dinámico:**
+    - El contenido del portfolio, como el perfil profesional, experiencia, habilidades, formación, y contacto, se carga desde un archivo JSON con soporte para Markdown.
+    - El frontend utiliza `Marked.js` para procesar y renderizar Markdown con un diseño consistente.
 
+2. **Integración del Comando `projects`:**
+    - Recupera automáticamente los repositorios públicos del usuario autenticado en GitHub.
 
 ---
 
-Si tienes alguna sugerencia, házmelo saber. 😊
+## 🤝 **Contribuciones**
+¡Se aceptan contribuciones! Abre un **issue** o un **pull request** en el repositorio.
+
+Si tienes alguna sugerencia, no dudes en contactar. 😊
+```
+

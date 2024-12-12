@@ -1,5 +1,3 @@
-// public/script.js
-
 let currentLanguage = 'es';
 let translations = {};
 let githubUsername = "mratomo"; // Por defecto, se actualizará tras login OAuth
@@ -84,7 +82,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             output.innerHTML += `<p>${projectsTitle}${fixedTranslations[currentLanguage].projects}</p>`;
             const projects = await fetchGitHubProjects();
             output.innerHTML += `<p>${projects}</p>`;
-            // Mostrar mensaje para solicitar ayuda después de ejecutar el comando
             showPromptToHelp();
             return;
         }
@@ -95,42 +92,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Opcional: añadir un mensaje de salida
             const exitMessage = currentLanguage === 'es' ? 'Consola limpiada.' : 'Console cleared.';
             output.innerHTML += `<p>${exitMessage}</p>`;
-            // Mostrar mensaje para solicitar ayuda después de ejecutar el comando
             showPromptToHelp();
             return;
         }
 
         if (translations[currentLanguage][command]) {
-            // Añadir las etiquetas HTML al vuelo
-            let title;
-            switch (command) {
-                case 'about':
-                    title = currentLanguage === 'es' ? '<h3>Perfil Profesional</h3>' : '<h3>Professional Profile</h3>';
-                    break;
-                case 'experience':
-                    title = currentLanguage === 'es' ? '<h3>Experiencia Laboral</h3>' : '<h3>Work Experience</h3>';
-                    break;
-                case 'skills':
-                    title = currentLanguage === 'es' ? '<h3>Habilidades Técnicas</h3>' : '<h3>Technical Skills</h3>';
-                    break;
-                case 'education':
-                    title = currentLanguage === 'es' ? '<h3>Formación Académica</h3>' : '<h3>Academic Background</h3>';
-                    break;
-                case 'contact':
-                    title = currentLanguage === 'es' ? '<h3>Contacto</h3>' : '<h3>Contact</h3>';
-                    break;
-                default:
-                    title = '';
-            }
-            output.innerHTML += `<p>${title}${translations[currentLanguage][command]}</p>`;
-            // Mostrar mensaje para solicitar ayuda después de ejecutar el comando
+            // Convertir Markdown a HTML con Marked.js
+            const markdownContent = translations[currentLanguage][command];
+            const htmlContent = marked.parse(markdownContent);
+
+            // Añadir contenido renderizado al área de salida
+            output.innerHTML += `<div class="formatted-content">${htmlContent}</div>`;
             showPromptToHelp();
         } else {
             const error = currentLanguage === 'es'
                 ? "Comando no reconocido. Escribe <span class='command'>help</span> para ver los comandos disponibles."
                 : "Unrecognized command. Type <span class='command'>help</span> to see available commands.";
             output.innerHTML += `<p>${error}</p>`;
-            // Mostrar mensaje para solicitar ayuda después de un comando no reconocido
             showPromptToHelp();
         }
         output.scrollTop = output.scrollHeight;
@@ -204,7 +182,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         output.innerHTML += `<p>${promptMessage}</p>`;
         output.scrollTop = output.scrollHeight;
     }
-
 
     updateLanguage();
 });
