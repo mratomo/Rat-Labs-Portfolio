@@ -1,3 +1,4 @@
+// public/script.js
 let currentLanguage = 'es';
 let translations = {};
 let githubUsername = "mratomo"; // Por defecto, se actualizará tras login OAuth
@@ -21,7 +22,7 @@ const fixedTranslations = {
             <li><a href="#">about</a>: Professional profile</li>
             <li><a href="#">experience</a>: Work experience</li>
             <li><a href="#">skills</a>: Technical skills</li>
-            <li><a href="#">education</a>: Academic background</li>
+            <li><a href="#">education</a>: Educational background</li>
             <li><a href="#">projects</a>: My GitHub projects</li>
             <li><a href="#">contact</a>: How to contact me</li>
             <li><a href="#">exit</a>: Clear the console</li>
@@ -39,6 +40,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     languageSwitcher.addEventListener('change', () => {
         currentLanguage = languageSwitcher.value;
         updateLanguage();
+        input.focus(); // Mantener el foco después de cambiar el idioma
+    });
+
+    // Mantener el foco en el input al hacer click en cualquier parte de la pantalla,
+    // excepto cuando el click sea sobre el mismo input o el selector de idioma.
+    document.addEventListener('click', (e) => {
+        if (e.target !== input && e.target !== languageSwitcher) {
+            input.focus();
+        }
     });
 
     input.addEventListener('keypress', async (e) => {
@@ -56,6 +66,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     async function handleCommand(command) {
+        if (command === '') return; // Ignorar comandos vacíos
+
         if (command === 'admin') {
             const isFullyAuthenticated = await checkAuthenticationStatus();
             if (!isFullyAuthenticated) {
@@ -74,6 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const helpContent = fixedTranslations[currentLanguage].help;
             output.innerHTML += `<p>${helpTitle}</p><ul>${helpContent}</ul>`;
             output.scrollTop = output.scrollHeight;
+            showPromptToHelp();
             return; // No repetir el menú de ayuda
         }
 
@@ -182,6 +195,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         output.innerHTML += `<p>${promptMessage}</p>`;
         output.scrollTop = output.scrollHeight;
     }
+
+    // Aseguramos que, al cargar por primera vez, el input quede con foco
+    input.focus();
 
     updateLanguage();
 });

@@ -1,3 +1,4 @@
+// server.cjs
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
@@ -13,13 +14,13 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: false,
-        maxAge: 60 * 60 * 1000
+        secure: false, // Cambia a true si usas HTTPS
+        maxAge: 60 * 60 * 1000 // 1 hora
     }
 }));
 
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static('public')); // Sirve archivos estáticos desde 'public/'
 
 const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
@@ -37,7 +38,6 @@ function isFullyAuthenticated(req, res, next) {
 app.get('/oauth/start', (req, res) => {
     const redirectUri = process.env.REDIRECT_URI || `${req.protocol}://${req.headers.host}/oauth/callback`;
     const url = `${GITHUB_OAUTH_URL}/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user`;
-
     res.redirect(url);
 });
 
@@ -68,6 +68,7 @@ app.get('/oauth/callback', async (req, res) => {
         req.session.githubUsername = userData.login;
         res.redirect('/verify-password.html');
     } catch (error) {
+        console.error(error);
         res.status(500).send('Error interno del servidor.');
     }
 });
@@ -107,6 +108,7 @@ app.post('/save-translations', isFullyAuthenticated, (req, res) => {
         fs.writeFileSync(path.join(__dirname, 'translations.json'), JSON.stringify(newTranslations, null, 4));
         res.json({ success: true });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ success: false, message: 'Error al guardar las traducciones.' });
     }
 });
@@ -116,6 +118,7 @@ app.get('/translations.json', (req, res) => {
         const data = fs.readFileSync(path.join(__dirname, 'translations.json'), 'utf-8');
         res.type('application/json').send(data);
     } catch (error) {
+        console.error(error);
         res.status(500).send('Error interno del servidor.');
     }
 });

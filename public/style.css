@@ -1,3 +1,5 @@
+/* public/style.css */
+
 /* Paleta de Colores Original */
 :root {
     --background: #1e1e1e; /* Fondo Principal */
@@ -243,5 +245,45 @@ li a::before {
     .terminal {
         width: 95%;
         height: 60vh;
+    }
+}
+
+/* Media Query para Pantallas Muy Pequeñas (Teléfonos) */
+@media (max-width: 480px) {
+    .terminal {
+        width: 100%;
+        height: 90vh;
+        border-radius: 0; /* Quitar bordes redondeados */
+    }
+
+    .header {
+        padding: 6px 10px;
+    }
+
+    .title {
+        font-size: 14px;
+    }
+
+    .language-selector .icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .body {
+        font-size: 12px; /* Reducir tamaño de fuente */
+    }
+
+    .input-line {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .prompt {
+        margin-bottom: 5px;
+    }
+
+    #user-input {
+        width: 100%;
+        font-size: 12px;
     }
 }
