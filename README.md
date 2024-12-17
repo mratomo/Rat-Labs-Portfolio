@@ -146,7 +146,6 @@ docker run -d \
 - 🚦 Redirección segura con `REDIRECT_URI`.
 - 🔐 Validación estricta de usuarios autorizados.
 - 🍪 Sesiones protegidas con cookies seguras.
-- 🌍 Restricción de CORS para el frontend configurado.
 
 ---
 
